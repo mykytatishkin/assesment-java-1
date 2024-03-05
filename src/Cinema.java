@@ -37,7 +37,9 @@ public class Cinema {
     public int getPrice() {
         return price;
     }
-
+    public List<LocalDateTime> getParsedDateTimes() {
+        return  seanceTime;
+    }
     @Override
     public String toString() {
         return title + "(" + genre + "-" + price + ") - " + rating;

@@ -12,6 +12,9 @@ import java.util.Date;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class Main {
@@ -46,8 +49,30 @@ public class Main {
         System.out.println("-------------------");
         sortAndPrintByPrice(listOfCinema);
         System.out.println("-------------------");
+
+        // Write information to a file
+        writeToFile("res.txt");
     }
 
+    // Function to write information to a file
+    public static void writeToFile(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Cinema cinema : listOfCinema) {
+                writer.write("First - " + cinema.getFilmName() + "/" + cinema.getRating());
+                writer.newLine();
+
+                // Write séance times
+                for (LocalDateTime dateTime : cinema.getParsedDateTimes()) {
+                    writer.write(dateTime.toString());
+                    writer.newLine();
+                }
+
+                writer.newLine(); // Add an extra line between movies
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
     public static void StringParser(String inputString)
     {
         // Define the pattern for extracting information
